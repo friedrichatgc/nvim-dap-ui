@@ -25,7 +25,7 @@ function StackFrames:render(canvas, frames, indent, current_frame_id)
     local is_current = frame.id == current_frame_id
     canvas:write(string.rep(" ", is_current and (indent - 1) or indent))
     if is_current then
-      canvas:write(config.icons().current_frame .. " ")
+      canvas:write(config.icons().current_frame)
     end
     canvas:write(
       frame.name,
