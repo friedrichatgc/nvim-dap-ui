@@ -196,11 +196,11 @@ function M.float_element(elem_name)
   return require("dapui.windows").open_float(elem, position, elem.float_defaults or {})
 end
 
-function M.render_type(maybe_type)
+function M.render_type(maybe_type, local_max_length)
   if not maybe_type then
     return ""
   end
-  local max_length = config.render().max_type_length
+  local max_length = local_max_length or config.render().max_type_length
   if not max_length or max_length == -1 then
     return maybe_type
   end
@@ -213,6 +213,18 @@ function M.render_type(maybe_type)
 
   local byte_length = vim.str_byteindex(maybe_type, max_length)
   return string.sub(maybe_type, 1, byte_length) .. "..."
+end
+
+function M.write_type(canvas, maybe_type)
+  local var_type = M.render_type(maybe_type)
+  if #var_type > 0 then
+    canvas:write(" ")
+    canvas:write(var_type, { group = "DapUIType" })
+  end
+  local var_type_full = M.render_type(maybe_type, -1)
+  canvas:add_mapping(config.actions.OPEN, function()
+    print(var_type_full)
+  end)
 end
 
 ---@param value_start integer

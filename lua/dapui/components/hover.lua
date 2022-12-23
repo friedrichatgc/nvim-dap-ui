@@ -56,14 +56,13 @@ function Hover:render(canvas)
   if hover_expr.error then
     canvas:write(": ")
     val_start = canvas:line_width()
-    value = hover_expr.error
+    value = "Error"
+    canvas:add_mapping(config.actions.OPEN, function()
+      print(hover_expr.error)
+    end)
   elseif hover_expr.evaluated then
     local evaluated = hover_expr.evaluated
-    local eval_type = util.render_type(evaluated.type)
-    if #eval_type > 0 then
-      canvas:write(" ")
-      canvas:write(eval_type, { group = "DapUIType" })
-    end
+    util.write_type(canvas, evaluated.type)
     canvas:write(" = ")
     val_start = canvas:line_width()
     value = evaluated.result

@@ -98,14 +98,13 @@ function Watches:render(canvas)
       if watch.error then
         self.expanded[i] = false
         canvas:write(": ")
-        value = watch.error
+        value = "Error"
+        canvas:add_mapping(config.actions.OPEN, function()
+          print(watch.error)
+        end)
       elseif watch.evaluated then
         local evaluated = watch.evaluated
-        local eval_type = util.render_type(evaluated.type)
-        if #eval_type > 0 then
-          canvas:write(" ")
-          canvas:write(eval_type, { group = "DapUIType" })
-        end
+        util.write_type(canvas, evaluated.type)
         canvas:write(" = ")
         value = evaluated.result
       end
