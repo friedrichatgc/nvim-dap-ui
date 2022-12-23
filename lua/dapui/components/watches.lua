@@ -92,7 +92,7 @@ function Watches:render(canvas)
       local prefix = config.icons()[self.expanded[i] and "expanded" or "collapsed"]
 
       canvas:write(prefix, { group = watch.error and "DapUIWatchesError" or "DapUIWatchesValue" })
-      canvas:write(" " .. expr)
+      canvas:write(" " .. expr, { group = "DapUIVariable" })
 
       local value = ""
       if watch.error then

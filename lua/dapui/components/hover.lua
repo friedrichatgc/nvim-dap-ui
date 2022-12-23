@@ -49,7 +49,7 @@ function Hover:render(canvas)
     canvas:write(prefix, { group = hover_expr.error and "DapUIWatchesError" or "DapUIDecoration" })
   end
 
-  canvas:write(self.expression)
+  canvas:write(self.expression, { group = "DapUIVariable" })
 
   local val_start = 0
   local value
