@@ -102,6 +102,7 @@ function M.show()
     api.nvim_win_set_option(window_id, "winhighlight", "NormalFloat:Normal")
   end
 
+  api.nvim_buf_add_highlight(hover_buf, -1, "CursorLine", 0, 0, -1)
   orig_col = orig_col - 1 -- Working with 0-based index now
   for _, mark in ipairs(extmarks) do
     local _, _, col, details = unpack(mark)
